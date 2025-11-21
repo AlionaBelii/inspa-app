@@ -3,11 +3,11 @@ create_categories_table
 
 INSERT INTO categories(title_en, title_ru, slug_en, slug_ru, worker_title_en, worker_title_ru, filename, alt_text) 
 VALUES 
-("UI/UX Design", "UI/UX Дизайн", "uiux-design", "веб-дизайн", "UI/UX Designer", "UI/UX Дизайнер", "uiux.jpg", "UI/UX Design"),
-("Illustration", "Иллюстрации", "illustration", "иллюстрации", "Illustrator", "Иллюстратор", "illustration.png", "Illustration"),
-("Motion Video", "Моушн Видео", "motion-video", "моушн-видео", "Motion Designer", "Моушн Дизайнер", "motionvideo.jepg", "Motion Video"),
-("Branding", "Брендинг", "branding", "брэндинг", "Branding Designer", "Дизайнер Бренда", "branding.png", "Branding"),
-("3D Design", "3D Дизайн", "3d-design", "3д-дизайн", "3D Designer", "3D Дизайнер", "3ddesign.jpg", "3D Design");
+("UI/UX Design", "UI/UX Дизайн", "uiux-design", "веб-дизайн", "UI/UX Designer", "UI/UX Дизайнер", "uiux.svg", "UI/UX Design"),
+("Illustration", "Иллюстрации", "illustration", "иллюстрации", "Illustrator", "Иллюстратор", "illustration.svg", "Illustration"),
+("Motion Video", "Моушн Видео", "motion-video", "моушн-видео", "Motion Designer", "Моушн Дизайнер", "motionvideo.svg", "Motion Video"),
+("Branding", "Брендинг", "branding", "брэндинг", "Branding Designer", "Дизайнер Бренда", "branding.svg", "Branding"),
+("3D Design", "3D Дизайн", "3d-design", "3д-дизайн", "3D Designer", "3D Дизайнер", "3ddesign.svg", "3D Design");
 
 -- workers
 create_workers_table

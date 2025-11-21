@@ -12,7 +12,7 @@ class PageController extends Controller
     {
         // наша модель Category + sql,prepare,execute,fetchassoc
         $categories = Category::all();
-        $topworkers = Worker::orderByDesc('experience_years')->limit(5)->with('category')->get();
+        $topworkers = Worker::orderByDesc('experience_years')->limit(5)->with('category')->withCount(['projects', 'reviews'])->get();
         return view("home", [
             "categories" => $categories,
             'topworkers' => $topworkers

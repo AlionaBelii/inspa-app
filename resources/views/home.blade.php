@@ -10,10 +10,10 @@
             <div class="flex flex-col justify-between md:flex-row w-full gap-5">
                 <div class="flex gap-5">
                     <button class="blue-btn">Start a project</button>
-                    <button class="white-btn">Browse designers ↗</button>
+                    <a href="{{ route('designers') }}" class="white-btn" wire:navigate>Browse designers ↗</a>
                 </div>
-                <div class="flex max-w-[650px] input-btn pl-5">
-                    <input class="bg-white rounded-[1000px] w-full" type="text" placeholder="Your email">
+                <div class="flex max-w-[650px] input-btn w-full ">
+                    <input class="bg-white rounded-[1000px] w-full pl-5" type="text" placeholder="Your email">
                     <button class="blue-btn">Subscribe</button>
                 </div>
             </div>
@@ -104,7 +104,9 @@
                         <div class="bg-white hover:bg-blue-100 p-8 rounded-md w-full flex items-center justify-center aspect-square">
                             <!-- <img class="h-[100px]" src="{{ asset('storage/categories/' . $worker->filename) }}" alt="{{ $category->alt_text }}"></div> -->
                         <p class="text-gray-900 font-bold hover:text-blue-900">{{ $worker['fullname_en'] }}</p>
+                        <p class="text-gray-900 font-bold hover:text-blue-900">{{ $worker->projects_count }}</p>
                         <p class="text-gray-900 font-bold hover:text-blue-900">{{ $worker->category->title_en }}</p>
+                        <p class="text-gray-900 font-bold hover:text-blue-900">{{ $worker->reviews_count }}</p>
                     </div>
                 </a>
             @empty
