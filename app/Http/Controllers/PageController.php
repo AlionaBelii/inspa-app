@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Subcategory;
 use App\Models\Worker;
+use App\Models\Review;
 
 class PageController extends Controller
 {
@@ -12,10 +14,17 @@ class PageController extends Controller
     {
         // наша модель Category + sql,prepare,execute,fetchassoc
         $categories = Category::all();
-        $topworkers = Worker::orderByDesc('experience_years')->limit(5)->with('category')->withCount(['projects', 'reviews'])->get();
+        $subcategories = Subcategory::all();
+        $workers = Worker::all();
+        $topworkers = Worker::orderByDesc('experience_years')->limit(4)->with('category')->withCount(['projects', 'reviews'])->get();
+        $topreviews = Review::inRandomOrder()->limit(4)->with('user')->with('worker')->get();
+
         return view("home", [
             "categories" => $categories,
-            'topworkers' => $topworkers
+            "subcategories" => $subcategories,
+            'topworkers' => $topworkers,
+            'topreviews' => $topreviews,
+            'workers' => $workers,
         ]);
     }
     public function ourworks()

@@ -6,6 +6,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\WorkerController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use App\Livewire\ProjectRequest;
+use App\Livewire\ProjectRequestControl;
 
 Route::get("/", [PageController::class, "home"])->name("home");
 Route::get("/ourworks", [PageController::class, "ourworks"])->name("ourworks");
@@ -25,3 +28,21 @@ Route::post("/register", [AuthCOntroller::class, "registerPost"])->name("registe
 Route::post("/login", [AuthCOntroller::class, "loginPost"])->name("loginPost");
 Route::get("/logout", [AuthCOntroller::class, "logout"])->name("logout");
 // последний параметр мы сами придумываем
+
+Route::get('/project/request', ProjectRequest::class)->name('project.request.form')->middleware('auth');
+Route::get('/requests/control', ProjectRequestControl::class)->name('admin.request.control')->middleware('auth', 'admin');
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::post("/update-role", [AdminController::class, "updateRole"])->name("updateRole");
+    Route::post("/update-category", [AdminController::class, "updateCategory"])->name("updateCategory");
+    Route::post("/update-subcategory", [AdminController::class, "updateSubcategory"])->name("updateSubcategory");
+    Route::post("/add-subcategory", [AdminController::class, "addSubcategory"])->name("addSubcategory");
+    Route::post("/delete-subcategory", [AdminController::class, "deleteSubcategory"])->name("deleteSubcategory");
+    Route::post("/add-worker", [AdminController::class, "addWorker"])->name("addWorker");
+    Route::post("/update-worker", [AdminController::class, "updateWorker"])->name("updateWorker");
+    Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('workers', [AdminController::class, 'indexWorker'])->name('admin.workers.index');
+    Route::get('categories', [AdminController::class, 'indexCategory'])->name('admin.categories.index');
+    Route::get('requests', [AdminController::class, 'indexRequest'])->name('admin.requests.index');
+    Route::patch('requests/{projectrequest}/status', [AdminController::class, 'updateStatus'])->name('admin.requests.update_status');
+});

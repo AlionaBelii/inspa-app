@@ -5,11 +5,17 @@ services:
       dockerfile: Dockerfile
     container_name: inspa-app
     ports:
-      - "8080:80"          # Apache exposed on http://localhost:8080
-      - "5173:5173"        # Vite dev server for HMR
+      - "8080:80"       # Apache exposed on http://localhost:8080
+      - "5173:5173"     # Vite dev server for HMR
     volumes:
-      - .:/var/www/html    # Mount source code into container
-      - /var/www/html/vendor 
+      # Главное монтирование кода с хоста.
+      - .:/var/www/html 
+      
+      # !!! ИСПРАВЛЕНИЕ СКОРОСТИ: 
+      # Мы монтируем специальный том "vendor" поверх папки vendor на хосте.
+      # Это делает чтение зависимостей (composer) очень быстрым.
+      - vendor:/var/www/html/vendor
+      
     depends_on:
       - db
 
@@ -25,7 +31,11 @@ services:
     ports:
       - "3307:3306"
     volumes:
+      # Этот том сохраняет данные вашей базы данных между перезапусками.
       - db_data:/var/lib/mysql
 
 volumes:
   db_data:
+  # Определение тома vendor, который мы используем для ускорения
+  vendor:
+    driver: local

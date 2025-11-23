@@ -36,7 +36,7 @@ class AuthController extends Controller
     public function loginPost(Request $req)
     {
         $data = $req->validate([
-            "email" => ["required", "email", "exists:users,email"],
+            "name" => ["required", "string", "exists:users,name"],
             "password" => ["required"]
         ]);
 
@@ -49,7 +49,7 @@ class AuthController extends Controller
         else 
         {
             return back()->withErrors([
-                "email" => "Email/Password invalid."
+                "name" => "Username/Password invalid."
             ]);
 
         }

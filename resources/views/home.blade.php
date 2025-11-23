@@ -20,7 +20,7 @@
         </div>
     </section>
     <section class="flex flex-col py-5 md:py-10">
-        <h1 class="title-block">Popular Categories</h1>
+        <h1 class="title-block text-2xl lg:text-4xl">Popular Categories</h1>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 w-full justify-center md:py-7">
             @forelse ($categories as $category)
                 <!-- {{-- <a href="{{ route('show-category', ['slug' => $category->slug_en]) }}">{{ $category['title_en'] }}</a> --}} -->
@@ -95,24 +95,58 @@
         </div>
     </section>
     <section class="flex flex-col py-5 md:py-10">
-        <h1 class="title-block">Featured Designers</h1>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 w-full justify-center md:py-7">
+        <h1 class="title-block text-2xl lg:text-4xl">Featured Designers</h1>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-5 w-full justify-center md:py-7">
             @forelse ($topworkers as $worker)
-                <!-- {{-- <a href="{{ route('show-category', ['slug' => $category->slug_en]) }}">{{ $category['title_en'] }}</a> --}} -->
-                <a class="text-blue" href="{{ route('show-worker', ['slug' => $worker['slug_en']]) }}">
+                <a class="text-blue hover:bg-blue-100 rounded-md w-full" href="{{ route('show-worker', ['slug' => $worker['slug_en']]) }}">
                     <div class="flex flex-col gap-2 items-center p-5 w-auto">
-                        <div class="bg-white hover:bg-blue-100 p-8 rounded-md w-full flex items-center justify-center aspect-square">
-                            <!-- <img class="h-[100px]" src="{{ asset('storage/categories/' . $worker->filename) }}" alt="{{ $category->alt_text }}"></div> -->
-                        <p class="text-gray-900 font-bold hover:text-blue-900">{{ $worker['fullname_en'] }}</p>
-                        <p class="text-gray-900 font-bold hover:text-blue-900">{{ $worker->projects_count }}</p>
-                        <p class="text-gray-900 font-bold hover:text-blue-900">{{ $worker->category->title_en }}</p>
-                        <p class="text-gray-900 font-bold hover:text-blue-900">{{ $worker->reviews_count }}</p>
+                        <div class="rounded-md w-full aspect-square overflow-hidden">
+                            <img class="w-full h-full object-cover" src="{{ asset('storage/workers/' . $worker->filename) }}" alt="{{ $worker->alt_text }}">
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-2">
+                            <div class="flex gap-2 bg-blue-900 items-center justify-center rounded-md p-2"><x-letsicon-done-ring-round class="text-white h-[15px]"/><p class="text-white text-[10px] font-regular">+{{ $worker->projects_count }} projects</p></div>
+                                <div class="flex gap-2 bg-blue-900  items-center justify-center rounded-md p-2"><x-carbon-review class="text-white h-[15px]"/><p class="text-white text-[10px] font-regular">{{ $worker->reviews_count }} reviews</p></div>
+                                <div>
+                                <div class="flex gap-2 bg-blue-900  items-center justify-center rounded-md p-2"><x-zondicon-calendar class="text-white h-[15px]"/> <p class="text-white text-[10px] font-regular">{{ $worker->experience_years }} years</p></div>
+                            </div>
+                        </div>
+                        <div><p class="text-gray-900 font-bold hover:text-blue-900">{{ $worker['fullname_en'] }}</p></div>
+                        <div class="p-3 bg-gray-100"><p class="text-gray-900 font-regular text-sm rounded-md">{{ $worker->category->title_en }}</p></div>
+                        
                     </div>
                 </a>
             @empty
-                <p>No categories </p>    
+                <p>No workers. </p>    
+            @endforelse
+        </div>
+        <a href="{{ route('designers') }}" class="white-btn self-end" wire:navigate>Browse designers ↗</a>
+    </section>
+
+    <section class="flex flex-col py-5 md:py-10">
+        <div class="w-full flex align-center justify-center">
+            <h2 class="uppercase text-blue-900 font-bold text-center ">Testimonials</h2>
+        </div>
+        <h1 class="title-block text-2xl lg:text-4xl">Client’s RevIews</h1>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-5 w-full align-start md:py-7">
+            @forelse ($topreviews as $review)
+                <div class="text-blue hover:bg-blue-100 rounded-md w-full">
+                    <div class="flex flex-col gap-2 items-center p-5 w-auto">
+                        <x-lucide-quote class="text-blue-200 h-[75px] self-start"/>
+                        <div class="flex flex-col gap-4 mt-5">
+                            <p class="text-[10px] lg:text-sm italic text-justify">{{$review['comment']}}</p>
+                            <div class="flex gap-2 items-center self-start">
+                            <div class="h-[50px] w-[50px] rounded-full overflow-hidden"><img class="object-cover h-full" src="{{ asset('storage/users/' . ($review->user->filename ?? 'default.jpg')) }}" alt="{{ $review->user->fullname}}"></div>
+                                <p>{{ $review->user->fullname }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <p>No workers. </p>    
             @endforelse
         </div>
     </section>
+    
+    @livewire("project-request")
     
 @endsection

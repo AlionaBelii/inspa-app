@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Worker extends Model
 {
     protected $fillable = [
-        "fullname_ru", "fullname_en", "experience_years", "description_ru", "description_en", "filename", "alt_text", "slug_ru", "slug_en", "category_id"
+        "fullname_ru", "fullname_en", "experience_years", "description_ru", "description_en", "filename", "alt_text", "slug_ru", "slug_en", "category_id", "email"
     ]; 
 
     public function category(): BelongsTo

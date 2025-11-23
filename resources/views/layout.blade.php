@@ -22,16 +22,23 @@
         <aside class=" fixed h-full right-0 z-2000 flex flex-col gap-5 bg-white px-10 py-10" id="sidebar">
             <nav class="flex flex-col gap-5">
                 @auth
-                    <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center"><img class="h-[15px]" src="{{ asset('storage/header/my-account.svg') }}" alt="Icon of menu">Account</span></a>
-                    <a href=""wire:navigate><span class="flex gap-2 items-center"><img class="h-[15px]" src="{{ asset('storage/header/dashboard.svg') }}" alt="Icon of menu">Dasboard</span></a>
-                    <a href=""wire:navigate><span class="flex gap-2 items-center"><img class="h-[15px]" src="{{ asset('storage/header/notification.svg') }}" alt="Icon of menu">Notifications</span></a>
-                    <a href="{{ route('logout') }}" wire:navigate><span class="flex gap-2 items-center"><img class="h-[15px]" src="{{ asset('storage/header/notification.svg') }}" alt="Icon of menu">Logout</span></a>
+                @if (Auth::user()->role === 'admin')
+                    <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center"><x-ri-account-circle-line class="h-[25px] text-blue-600"/> Account</span></a>
+                    <a href="{{ route('admin.dashboard') }}" wire:navigate><span class="flex gap-2 items-center"><x-ri-dashboard-line class="h-[25px] text-blue-600"/> Admin's panel</span></a>
+                    <a href="{{ route('logout') }}" wire:navigate><span class="flex gap-2 items-center"><x-humble-logout class="h-[25px] text-blue-600"/> Logout</span></a>
+                @endif
+                @endauth
+                @auth
+                @if (Auth::user()->role === 'user')
+                    <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center"><x-ri-account-circle-line class="h-[25px] text-blue-600"/> Account</span></a>
+                    <a href="{{ route('logout') }}" wire:navigate><span class="flex gap-2 items-center"><x-humble-logout class="h-[25px] text-blue-600"/> Logout</span></a>
+                @endif
                 @endauth
 
                 @guest
-                    <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center"><img class="h-[15px]" src="{{ asset('storage/header/my-account.svg') }}" alt="Icon of menu">Login</span></a>
-                    <a href="{{ route('register') }}"wire:navigate><span class="flex gap-2 items-center"><img class="h-[15px]" src="{{ asset('storage/header/my-account.svg') }}" alt="Icon of menu">Register</span></a>
-                    @endguest
+                    <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center"><x-ri-account-circle-line class="h-[25px] text-blue-600"/>Login</span></a>
+                    <a href="{{ route('register') }}"wire:navigate><span class="flex gap-2 items-center"><x-tabler-login class="h-[25px] text-blue-600"/>Register</span></a>
+                @endguest
             </nav>       
         </aside>
         <div id="sidebar-mobile-overlay" onclick="toggleSidebarMobile()"></div>
@@ -61,17 +68,24 @@
                         </li>
                     </ul>
                 <div class="flex flex-col gap-5">
-                    @auth
-                        <a href="{{ route('login') }}" wire:navigate><span class="flex gap-2 items-center px-5 py-2"><img class="h-[15px]" src="{{ asset('storage/header/my-account.svg') }}" alt="Icon of menu">Account</span></a>
-                        <a href="" wire:navigate><span class="flex gap-2 items-center px-5 py-2"><img class="h-[15px]" src="{{ asset('storage/header/dashboard.svg') }}" alt="Icon of menu">Dasboard</span></a>
-                        <a href="" wire:navigate><span class="flex gap-2 items-center px-5 py-2"><img class="h-[15px]" src="{{ asset('storage/header/notification.svg') }}" alt="Icon of menu">Notifications</span></a>
-                    @endauth
+                @auth
+                @if (Auth::user()->role === 'admin')
+                    <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center px-5 py-2"><x-ri-account-circle-line class="h-[25px] text-blue-600"/> Account</span></a>
+                    <a href="{{ route('admin.dashboard') }}" wire:navigate><span class="flex gap-2 items-center px-5 py-2"><x-ri-dashboard-line class="h-[25px] text-blue-600"/> Admin's panel</span></a>
+                    <a href="{{ route('logout') }}" wire:navigate><span class="flex gap-2 items-center px-5 py-2"><x-humble-logout class="h-[25px] text-blue-600"/> Logout</span></a>
+                @endif
+                @endauth
+                @auth
+                @if (Auth::user()->role === 'user')
+                    <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center px-5 py-2"><x-ri-account-circle-line class="h-[25px] text-blue-600"/> Account</span></a>
+                    <a href="{{ route('logout') }}" wire:navigate><span class="flex gap-2 items-center px-5 py-2"><x-humble-logout class="h-[25px] text-blue-600"/> Logout</span></a>
+                @endif
+                @endauth
 
-                    @guest
-                        <a href="{{ route('login') }}" wire:navigate><span class="flex gap-2 items-center px-5 py-2"><img class="h-[15px]" src="{{ asset('storage/header/my-account.svg') }}" alt="Icon of menu">Login</span></a>
-                        <a href="{{ route('register') }}" wire:navigate><span class="flex gap-2 items-center px-5 py-2"><img class="h-[15px]" src="{{ asset('storage/header/my-account.svg') }}" alt="Icon of menu">Register</span></a>
-                    @endguest
-                    
+                @guest
+                    <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center px-5 py-2"><x-ri-account-circle-line class="h-[25px] text-blue-600"/>Login</span></a>
+                    <a href="{{ route('register') }}"wire:navigate><span class="flex gap-2 items-center px-5 py-2"><x-tabler-login class="h-[25px] text-blue-600"/>Register</span></a>
+                @endguest                    
                 </div>
             </nav>       
         </aside>    

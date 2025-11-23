@@ -9,8 +9,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('status', ['user', 'admin', 'worker'])->default('user')->after('email');
-            $table->string('filename', 255)->nullable()->after('status');
+            $table->enum('role', ['user', 'admin', 'worker'])->default('user')->after('email');
+            $table->string('filename', 255)->nullable()->after('email');
             $table->string('alt_text', 255)->nullable()->after('filename');
             
         });
@@ -18,9 +18,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('alt_text');
-            $table->dropColumn('filename');
-            $table->dropColumn('status');
+            if (Schema::hasColumn('users', 'alt_text')) {
+                // $table->dropColumn(['fullname', 'status', 'filename', 'alt_text', 'role']);
+            }
         });
     }
 };

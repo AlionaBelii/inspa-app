@@ -38,6 +38,13 @@ body{
     font-family: "Major Mono Display", monospace;
 }
 
+.input_auth{
+    border: 1px solid black;
+    border-radius: 1000px;
+    padding: 10px;
+
+}
+
 .title-block{
     font-family: "Major Mono Display", monospace;
     font-size: 36px;
