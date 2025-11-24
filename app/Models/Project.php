@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     protected $fillable = [
-        "title_name_ru","title_name_en", "description_ru", "description_en", "filename", "alt_text", "price", "status", "subcategory_id", "worker_id", "to_finish_at"
+        "id", "title_name_ru", "title_name_en", "description_ru", "description_en", "filename", "alt_text", "price", "status", "subcategory_id", "worker_id", "to_finish_at"
     ];
 
      public function worker()
@@ -24,12 +24,15 @@ class Project extends Model
     {
         // has one through - можем получить категории через подкатегорию 
         return $this->hasOneThrough(
+            Worker::class,
             Category::class,
             Subcategory::class,
+            "id",
             "id", // локальный ключ на промежуточную модель SubCategory
             "id", // локальный ключ на целевую модель Category
             "subcategory_id", // внешний ключи на Project
-            "category_id" // внешний ключи на Subcategory
+            "category_id", // внешний ключи на Subcategory
+            "worker_id" // внешний ключи на Subcategory
         );
     }
 }

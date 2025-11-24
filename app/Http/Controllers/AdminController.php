@@ -9,9 +9,11 @@ use App\Models\User;
 use App\Models\Worker;
 use App\Models\Project;
 use App\Models\Category;
+use App\Models\Article;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {   
@@ -24,8 +26,9 @@ class AdminController extends Controller
         $totalCategories = Category::count();
         $totalSubcategories = Subcategory::count();
         $allUsers = User::all();
+        $totalArticles = Article::count();
 
-        return view('admin.dashboard.index', compact('newRequestsCount', 'totalWorkers', 'allUsers', 'totalUsers', 'totalProjects', 'totalCategories', 'totalSubcategories'));
+        return view('admin.dashboard.index', compact('newRequestsCount', 'totalWorkers', 'allUsers', 'totalUsers', 'totalProjects', 'totalCategories', 'totalSubcategories', 'totalArticles'));
     }
     
     public function updateRole(Request $req, User $user)
@@ -246,4 +249,59 @@ class AdminController extends Controller
         
         return back()->with('update_designer_success', "Designer " . $worker->fullname_en . " was updated!");
     }
+
+    public function indexArticle()
+    {
+        $articles = Article::with('category')->orderBy('created_at', 'desc')->paginate(5);
+        $categories = Category::with('subcategories')->get();
+        
+        return view('admin.articles.index', compact('articles', 'categories'));
+
+    }
+
+    public function addArticle(Request $req)
+    {
+        $validated = $req->validate([
+            'category_id' => ['required', 'exists:categories,id'],
+            'title_en' => ['required', 'string', 'max:255'],
+            'title_ru' => ['required', 'string', 'max:255'],
+            'sh_description_en' => ['nullable', 'string', 'max:255'],
+            'sh_description_ru' => ['nullable', 'string', 'max:255'],
+            'description_en' => ['nullable', 'string', 'max:1000'],
+            'description_ru' => ['nullable', 'string', 'max:1000'],
+            'filename' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048']
+        ]);
+
+        $photoPath = null;
+        
+        if($req->hasFile('filename'))
+        {
+            $photoPath = $req->file('filename')->store('articles', 'public');
+        }
+        $slugSource = $validated['title_ru'] ?? $validated['title_en'];
+        $slug_ru = Str::slug($slugSource, '-', 'ru');
+        $originalSlug = $slug_ru;
+        $count = 1;
+        while (Article::where('slug_ru', $slug_ru)->exists()) {
+            $slug_ru = $originalSlug . '-' . $count++;
+        }
+
+        $article = Article::create([
+            'category_id' => $validated['category_id'],
+            'user_id' => Auth::id(),
+            'title_en' => $validated['title_en'],
+            'title_ru' => $validated['title_ru'] ?? $validated['title_en'],
+            'sh_description_ru' => $validated['sh_description_ru'],
+            'sh_description_en' => $validated['sh_description_en'],
+            'description_ru' => $validated['description_ru'],
+            'description_en' => $validated['description_en'],
+            
+            'filename' => $photoPath,
+            'slug_en' => $slug_ru,
+            'slug_ru' => $slug_ru
+        ]);
+        
+        return back()->with('add_article_success', "Article " . $article->title_en . " was added!");
+    }
+
 }

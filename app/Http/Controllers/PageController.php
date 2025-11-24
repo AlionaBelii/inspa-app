@@ -37,7 +37,19 @@ class PageController extends Controller
     }
     public function pricing()
     {
-        return view("pricing");
+        $uiuxDetails = Category::where("id", "=", "1")->with('subcategories')->get();
+        $illustrationDetails = Category::where("id", "=", "2")->with('subcategories')->get();
+        $motionDetails = Category::where("id", "=", "3")->with('subcategories')->get();
+        $brandingDetails = Category::where("id", "=", "4")->with('subcategories')->get();
+        $design3Details = Category::where("id", "=", "5")->with('subcategories')->get();
+
+        return view("pricing", [
+            'uiuxDetails' => $uiuxDetails ,
+            'illustrationDetails' => $illustrationDetails ,
+            'motionDetails' => $motionDetails ,
+            'brandingDetails' => $brandingDetails ,
+            'design3Details' => $design3Details ,
+        ]);
     }
     public function about()
     {
@@ -47,8 +59,14 @@ class PageController extends Controller
     {
         return view("contacts");
     }
+
     public function blog()
     {
         return view("blog");
+    }
+
+    public function startProject()
+    {
+        return view("start-project");
     }
 }

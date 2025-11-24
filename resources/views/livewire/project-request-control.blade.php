@@ -45,7 +45,7 @@
             <p>No new requests!</p>
         @endforelse
     </ul>
-    <div class="mt-6 flex justify-center">
-        {{ $newrequests->links() }}
+    <div class="mt-6 flex flex-col justify-center" data-no-instant>
+        {{ $newrequests->links('livewire.pagination-dark') }}
     </div>
 </div>

@@ -1,15 +1,16 @@
 @extends("layout")
 @section("main")
     <section class="flex justify-between items-center py-14 h-max">
-        <div class="flex flex-col gap-10 w-full">
-            <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-10 w-full relative">
+            <div class="absolute top-[-80px] right-0 xl:top-[-100px] xl:right-0 overflow:hidden z-1000">@livewire("animated-spinner")</div>
+            <div class="flex flex-col gap-10 z-2000">
                 <h1 class="text-5xl leading-[45px] font-medium  md:text-7xl md:leading-[85px] text-gray-950"><span class="decorative-font text-green-600">Design<br></span>Starts With<br>
                  <span class=" text-blue-900 decorative-font">A Connection</span></h1>
                 <p>A platform where clients and designers collaborate seamlessly.</p>
             </div>
-            <div class="flex flex-col justify-between md:flex-row w-full gap-5">
+            <div class="z-2000 flex flex-col justify-between md:flex-row w-full gap-5">
                 <div class="flex gap-5">
-                    <button class="blue-btn">Start a project</button>
+                    <a href="{{ route('start-project') }}" class="blue-btn" wire:navigate>Start a project</a>
                     <a href="{{ route('designers') }}" class="white-btn" wire:navigate>Browse designers ↗</a>
                 </div>
                 <div class="flex max-w-[650px] input-btn w-full ">
@@ -20,16 +21,16 @@
         </div>
     </section>
     <section class="flex flex-col py-5 md:py-10">
-        <h1 class="title-block text-2xl lg:text-4xl">Popular Categories</h1>
+        <h1 class="title-block text-2xl lg:text-4xl">We Work With</h1>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 w-full justify-center md:py-7">
             @forelse ($categories as $category)
                 <!-- {{-- <a href="{{ route('show-category', ['slug' => $category->slug_en]) }}">{{ $category['title_en'] }}</a> --}} -->
-                <a class="text-blue" href="{{ route('show-category', ['slug' => $category['slug_en']]) }}">
+                <div class="text-blue">
                     <div class="flex flex-col gap-2 items-center p-5 w-auto">
                         <div class="bg-white hover:bg-blue-100 p-8 rounded-md w-full flex items-center justify-center aspect-square"><img class="h-[100px]" src="{{ asset('storage/categories/' . $category->filename) }}" alt="{{ $category->alt_text }}"></div>
                         <p class="text-gray-900 font-bold hover:text-blue-900">{{ $category['title_en'] }}</p>
                     </div>
-                </a>
+                </div>
             @empty
                 <p>No categories </p>    
             @endforelse
@@ -111,7 +112,7 @@
                             </div>
                         </div>
                         <div><p class="text-gray-900 font-bold hover:text-blue-900">{{ $worker['fullname_en'] }}</p></div>
-                        <div class="p-3 bg-gray-100"><p class="text-gray-900 font-regular text-sm rounded-md">{{ $worker->category->title_en }}</p></div>
+                        <div class="p-3 bg-gray-100 rounded-md"><p class="text-gray-900 font-regular text-sm ">{{ $worker->category->title_en }}</p></div>
                         
                     </div>
                 </a>
@@ -133,7 +134,7 @@
                     <div class="flex flex-col gap-2 items-center p-5 w-auto">
                         <x-lucide-quote class="text-blue-200 h-[75px] self-start"/>
                         <div class="flex flex-col gap-4 mt-5">
-                            <p class="text-[10px] lg:text-sm italic text-justify">{{$review['comment']}}</p>
+                            <p class="text-[12px] lg:text-sm italic text-justify">{{$review['comment']}}</p>
                             <div class="flex gap-2 items-center self-start">
                             <div class="h-[50px] w-[50px] rounded-full overflow-hidden"><img class="object-cover h-full" src="{{ asset('storage/users/' . ($review->user->filename ?? 'default.jpg')) }}" alt="{{ $review->user->fullname}}"></div>
                                 <p>{{ $review->user->fullname }}</p>
@@ -142,7 +143,7 @@
                     </div>
                 </div>
             @empty
-                <p>No workers. </p>    
+                <p>No testimonials. </p>    
             @endforelse
         </div>
     </section>

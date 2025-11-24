@@ -1,6 +1,7 @@
 @extends("layout")
 @section("main")
-    <section>
+    <section class="relative">
+        <div class="absolute top-[-80px] right-0 xl:top-[-100px] xl:right-[0px] overflow:hidden z-1000">@livewire("animated-spinner")</div>
         <div>
             <p class="uppercase text-blue-900 font-bold text-xl">Administrator's panel</p>
         </div>
@@ -50,7 +51,7 @@
                     <a class="blue-btn" href="{{ route('admin.categories.index') }}">Control categories</a>
                     <a class="blue-btn" href="{{ route('admin.workers.index') }}">Control designers</a>
                     <a class="blue-btn" href="{{ route('admin.requests.index') }}">Control requests</a>
-                    <a class="blue-btn" href="{{ route('admin.requests.index') }}">Control blog</a>
+                    <a class="blue-btn" href="{{ route('admin.articles.index') }}">Control articles</a>
             </div>
        <div class="flex flex-wrap gap-4">
             <div class="flex flex-col gap-2 p-4 border border-gray-300 rounded-md">
@@ -67,6 +68,9 @@
             </div>
             <div class="flex flex-col gap-2 p-4 border border-gray-300 rounded-md">
                 <h4>Total subcategories: <span class="text-blue-900 font-bold">{{ $totalSubcategories }}</span></h4>
+            </div>
+            <div class="flex flex-col gap-2 p-4 border border-gray-300 rounded-md">
+                <h4>Total articles: <span class="text-blue-900 font-bold">{{ $totalArticles}}</span></h4>
             </div>
             
        </div>

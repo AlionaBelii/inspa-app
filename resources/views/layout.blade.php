@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}"></link>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="{{ asset('js/search.js') }}"></script>
 
     @livewireStyles
@@ -19,7 +20,7 @@
         @yield("main")
     </main>
     <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
-        <aside class=" fixed h-full right-0 z-2000 flex flex-col gap-5 bg-white px-10 py-10" id="sidebar">
+        <aside class="fixed h-full right-0 z-2000 flex flex-col justify-between gap-5 bg-white px-10 py-10" id="sidebar">
             <nav class="flex flex-col gap-5">
                 @auth
                 @if (Auth::user()->role === 'admin')
@@ -31,6 +32,7 @@
                 @auth
                 @if (Auth::user()->role === 'user')
                     <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center"><x-ri-account-circle-line class="h-[25px] text-blue-600"/> Account</span></a>
+                    <a href="{{ route('start-project') }}"wire:navigate><span class="flex gap-2 items-center">Start a project</span></a>
                     <a href="{{ route('logout') }}" wire:navigate><span class="flex gap-2 items-center"><x-humble-logout class="h-[25px] text-blue-600"/> Logout</span></a>
                 @endif
                 @endauth
@@ -39,7 +41,17 @@
                     <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center"><x-ri-account-circle-line class="h-[25px] text-blue-600"/>Login</span></a>
                     <a href="{{ route('register') }}"wire:navigate><span class="flex gap-2 items-center"><x-tabler-login class="h-[25px] text-blue-600"/>Register</span></a>
                 @endguest
-            </nav>       
+            </nav>
+            <div class="flex flex-col gap-3 items-center w-full">
+                <img class="h-[75px]" src="{{ asset('storage/flaticon.svg') }}" alt="">
+                <div class="flex items-center text-gray-900 gap-1">
+                    <span class="footer-link-simple-mobile text-center"> Copyright 2025</span>
+                    <span class="footer-link-simple-mobile text-center"> | </span>
+                    <a class="footer-link-underline-mobile text-center" href="{{ route('blog') }}">Privacy Policy</a>
+                    <span class="footer-link-simple-mobile text-center"> | </span>
+                    <a class="footer-link-underline-mobile text-center" href="{{ route('blog') }}">Site Terms & Disclosures</a>
+                </div>
+            </div>       
         </aside>
         <div id="sidebar-mobile-overlay" onclick="toggleSidebarMobile()"></div>
         <aside class="flex flex-col gap-5 bg-white px-10 py-10" id="sidebar-mobile">
@@ -78,6 +90,7 @@
                 @auth
                 @if (Auth::user()->role === 'user')
                     <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center px-5 py-2"><x-ri-account-circle-line class="h-[25px] text-blue-600"/> Account</span></a>
+                    <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center px-5 py-2">Start a project</span></a>
                     <a href="{{ route('logout') }}" wire:navigate><span class="flex gap-2 items-center px-5 py-2"><x-humble-logout class="h-[25px] text-blue-600"/> Logout</span></a>
                 @endif
                 @endauth
