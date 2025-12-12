@@ -14,6 +14,10 @@ class AllProjects extends Component
 
     public $selectedCategoryId = null;
 
+    protected $queryString = [
+        'selectedCategoryId' => ['except' => null, 'as' => 'category']
+    ];
+
     public function updatedSelectedCategoryId()
     {
         $this->resetPage('newRequestPage');

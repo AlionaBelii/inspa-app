@@ -50,29 +50,11 @@ class AdminController extends Controller
     public function indexRequest()
     {
         $requests = ProjectRequest::with('worker')->orderBy('created_at', 'desc')->paginate(20);
-        // $newrequests = ProjectRequest::where('status', '=', 'new')->count();
         $newrequests = ProjectRequest::where('status', '=', 'new')->orderBy('created_at', 'desc')->with('user')->with('subcategory')->with('worker')->paginate(20);
 
         return view('admin.requests.index', compact('requests', 'newrequests'));
 
     }
-
-    // public function updateStatus(Request $req, ProjectRequest $projectrequest)
-    // {
-    //     $req->validate([
-    //         "request_id" => ["required", "exists:project_requests,id"],
-    //         'status' => ["required", "in:new,in_progress,completed,rejected"]
-    //     ]);
-        
-    //     $projectrequest = ProjectRequest::findOrFail($req->request_id);
-
-    //     $projectrequest->update([
-    //         'status' => $req->status
-    //     ]);
-
-    //     return redirect()->back()->with('success', 'Status is changed. ');
-    // }
-
     public function indexCategory()
     {
         $categories = Category::with('subcategories')->get();

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Project extends Model
 {
@@ -34,5 +35,10 @@ class Project extends Model
             "category_id", // внешний ключи на Subcategory
             "worker_id" // внешний ключи на Subcategory
         );
+    }
+
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

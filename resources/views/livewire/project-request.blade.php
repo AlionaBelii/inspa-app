@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="flex flex-col align-center justife-center md:py-7">
-                       <form wire:submit.prevent="submitRequest" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <form wire:submit.prevent="submitRequest" class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div class="flex flex-col gap-2">
                     <label class="text-blue-900 font-bold" for="fullname">Full name*</label>
                     <input type="text" class="border border-gray-300 rounded-md p-3" wire:model="fullname" placeholder="Full Name">
@@ -91,7 +91,7 @@
                             <div wire:loading wire:target="reference_file" class="ml-3 text-sm font-semibold text-blue-500">
                                 Loading...
                             </div>
-                            </div>
+                        </div>
                             <p class="text-xs text-gray-500">ZIP, PDF, JPG, PNG up to 10MB</p>
                         </div>
                     <input id="file_input_lw" wire:model="reference_file" type="file" class="sr-only" accept=".zip,.pdf,.jpg,.png">

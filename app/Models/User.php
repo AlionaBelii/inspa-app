@@ -55,6 +55,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class);
     }
+    
+
+    public function projects(): HasMany
+    {
+        return $this->hasMany(ProjectRequest::class);
+    }
 
     Public function isAdmin():bool 
     {

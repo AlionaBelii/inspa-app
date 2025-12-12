@@ -24,15 +24,15 @@
             <nav class="flex flex-col gap-5">
                 @auth
                 @if (Auth::user()->role === 'admin')
-                    <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center"><x-ri-account-circle-line class="h-[25px] text-blue-600"/> Account</span></a>
+                    <a href="{{ route('show-user', ['name' => Auth::user()->name]) }}"wire:navigate><span class="flex gap-2 items-center"><x-ri-account-circle-line class="h-[25px] text-blue-600"/> Account</span></a>
                     <a href="{{ route('admin.dashboard') }}" wire:navigate><span class="flex gap-2 items-center"><x-ri-dashboard-line class="h-[25px] text-blue-600"/> Admin's panel</span></a>
                     <a href="{{ route('logout') }}" wire:navigate><span class="flex gap-2 items-center"><x-humble-logout class="h-[25px] text-blue-600"/> Logout</span></a>
                 @endif
                 @endauth
                 @auth
                 @if (Auth::user()->role === 'user')
-                    <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center"><x-ri-account-circle-line class="h-[25px] text-blue-600"/> Account</span></a>
-                    <a href="{{ route('start-project') }}"wire:navigate><span class="flex gap-2 items-center">Start a project</span></a>
+                    <a href="{{ route('show-user', ['name' => Auth::user()->name]) }}"wire:navigate><span class="flex gap-2 items-center"><x-ri-account-circle-line class="h-[25px] text-blue-600"/> Account</span></a>
+                    <a href="{{ route('start-project') }}"wire:navigate><span class="flex gap-2 items-center"><span class="font-bold  text-blue-600 text-2xl">+</span>Start a project</span></a>
                     <a href="{{ route('logout') }}" wire:navigate><span class="flex gap-2 items-center"><x-humble-logout class="h-[25px] text-blue-600"/> Logout</span></a>
                 @endif
                 @endauth
@@ -82,15 +82,15 @@
                 <div class="flex flex-col gap-5">
                 @auth
                 @if (Auth::user()->role === 'admin')
-                    <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center px-5 py-2"><x-ri-account-circle-line class="h-[25px] text-blue-600"/> Account</span></a>
+                    <a href="{{ route('show-user', ['name' => Auth::user()->name]) }}"wire:navigate><span class="flex gap-2 items-center px-5 py-2"><x-ri-account-circle-line class="h-[25px] text-blue-600"/>Account</span></a>
                     <a href="{{ route('admin.dashboard') }}" wire:navigate><span class="flex gap-2 items-center px-5 py-2"><x-ri-dashboard-line class="h-[25px] text-blue-600"/> Admin's panel</span></a>
                     <a href="{{ route('logout') }}" wire:navigate><span class="flex gap-2 items-center px-5 py-2"><x-humble-logout class="h-[25px] text-blue-600"/> Logout</span></a>
                 @endif
                 @endauth
                 @auth
                 @if (Auth::user()->role === 'user')
-                    <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center px-5 py-2"><x-ri-account-circle-line class="h-[25px] text-blue-600"/> Account</span></a>
-                    <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center px-5 py-2">Start a project</span></a>
+                    <a href="{{route('show-user', ['name' => Auth::user()->name]) }}"wire:navigate><span class="flex gap-2 items-center px-5 py-2"><x-ri-account-circle-line class="h-[25px] text-blue-600"/>Account</span></a>
+                    <a href="{{ route('login') }}"wire:navigate><span class="flex gap-2 items-center px-5 py-2"><span class="font-bold  text-blue-600 text-2xl">+</span>Start a project</span></a>
                     <a href="{{ route('logout') }}" wire:navigate><span class="flex gap-2 items-center px-5 py-2"><x-humble-logout class="h-[25px] text-blue-600"/> Logout</span></a>
                 @endif
                 @endauth

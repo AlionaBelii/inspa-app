@@ -14,6 +14,10 @@ class AllDesigners extends Component
 
     public $selectedCategoryId = null;
 
+    protected $queryString = [
+        'selectedCategoryId' => ['except' => null, 'as' => 'category']
+    ];
+
     public function updatedSelectedCategoryId()
     {
         $this->resetPage('newRequestPage');
@@ -22,6 +26,7 @@ class AllDesigners extends Component
     public function filterByCategory($id = null)
     {
         $this->selectedCategoryId = $id;
+        $this->resetPage();
     }
 
     public function render()

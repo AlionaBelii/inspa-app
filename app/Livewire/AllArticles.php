@@ -29,6 +29,10 @@ class AllArticles extends Component
         $this->mode = 'all';
     }
 
+    protected $queryString = [
+        'selectedCategoryId' => ['except' => null, 'as' => 'category']
+    ];
+
     public function showFavorites()
     {
         if(Auth::check())
